@@ -3,6 +3,7 @@ from pyspark.sql import *
 from lib.logger import Log4j
 
 if __name__ == "__main__":
+
     spark = SparkSession \
         .builder \
         .master("local[3]") \
@@ -21,6 +22,8 @@ if __name__ == "__main__":
 
     flightTimeParquetDF.write \
         .mode("overwrite") \
+        .bucketBy(5,"OP_CARRIER","ORIGIN") \
+        .sortBy("OP_CARRIER","ORIGIN") \
         .saveAsTable("flight_data_tbl")
 
     logger.info(spark.catalog.listTables("AIRLINE_DB"))
