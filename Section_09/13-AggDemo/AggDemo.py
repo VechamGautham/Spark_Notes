@@ -70,5 +70,4 @@ if __name__ == "__main__":
                         f.round(f.sum(f.col("quantity")*f.col("unitprice")),2).alias("InvoiceValue")
                     ) \
                     .orderBy("Country","WeekNumber")
-    
     summary_df_2.show()
